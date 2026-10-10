@@ -4,6 +4,8 @@ import pandas as pd
 address = 'https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m'
 
 response = requests.get(address)
+if response.status_code != 200:
+    raise Exception(f"Error! Status code {response.status_code}")
 data = response.json()
 
 times = data["hourly"]["time"]
