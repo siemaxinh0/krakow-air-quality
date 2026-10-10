@@ -1,9 +1,12 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-measure = pd.read_csv('data/air_quality_krakow.csv', parse_dates=['times'])
+measure_df = pd.read_csv('data/air_quality_krakow.csv', parse_dates=['times'])
+measure_df['hour'] = measure_df['times'].dt.hour
 
-measure.info()
+hourly_mean = measure_df.groupby("hour")['pm10'].mean()
+print(hourly_mean)
 
-measure.plot(x='times', y='pm10')
+
+hourly_mean.plot()
 plt.show()
