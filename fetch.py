@@ -16,9 +16,7 @@ measure_df['times'] = pd.to_datetime(measure_df['times'])
 # print(measure_df.head())
 # measure_df.info()
 
-print(measure_df['times'].head().dt.weekday)
-print(measure_df['times'].head().dt.hour)
-print(measure_df['times'].head().dt.year)
+measure_df.to_csv('data/open_meteo_temp.csv', index=False)
 
 
 
