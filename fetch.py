@@ -17,7 +17,8 @@ measure_df = pd.DataFrame(measure_dict)
 
 measure_df['times'] = pd.to_datetime(measure_df['times'])
 
-measure_df.info()
+maska = pd.isna(measure_df['pm10'])
+print(measure_df[maska])
 
 
 
