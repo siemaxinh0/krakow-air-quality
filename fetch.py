@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-address = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=50.06&longitude=19.94&hourly=pm10&timezone=auto'
+address = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=50.06&longitude=19.94&hourly=pm10&timezone=auto&past_days=92'
 
 response = requests.get(address)
 if response.status_code != 200:
@@ -18,6 +18,7 @@ measure_df = pd.DataFrame(measure_dict)
 measure_df['times'] = pd.to_datetime(measure_df['times'])
 
 measure_df.to_csv('data/air_quality_krakow.csv', index=False)
+
 
 
 
