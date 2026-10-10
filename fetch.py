@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 
-address = 'https://api.open-meteo.com/v1/forecast?latitude=50.06&longitude=19.94&hourly=temperature_2m'
+address = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=50.06&longitude=19.94&hourly=pm10&timezone=auto'
 
 response = requests.get(address)
 if response.status_code != 200:
@@ -9,16 +9,16 @@ if response.status_code != 200:
 data = response.json()
 
 times = data["hourly"]["time"]
-temps = data["hourly"]["temperature_2m"]
+pm10 = data["hourly"]["pm10"]
 
-measure_dict = {'times': times, 'temps': temps}
+measure_dict = {'times': times, 'pm10': pm10}
 
 measure_df = pd.DataFrame(measure_dict)
-measure_df['times'] = pd.to_datetime(measure_df['times'])
-# print(measure_df.head())
-# measure_df.info()
 
-measure_df.to_csv('data/open_meteo_temp.csv', index=False)
+measure_df['times'] = pd.to_datetime(measure_df['times'])
+
+measure_df.info()
+
 
 
 
