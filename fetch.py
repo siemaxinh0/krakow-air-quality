@@ -17,8 +17,7 @@ measure_df = pd.DataFrame(measure_dict)
 
 measure_df['times'] = pd.to_datetime(measure_df['times'])
 
-maska = pd.isna(measure_df['pm10'])
-print(measure_df[maska])
+measure_df.to_csv('data/air_quality_krakow.csv', index=False)
 
 
 
