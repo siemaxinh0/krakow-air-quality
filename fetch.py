@@ -8,7 +8,12 @@ data = response.json()
 
 times = data["hourly"]["time"]
 temps = data["hourly"]["temperature_2m"]
-print(type(times))
-print(times[0])
-print(type(times[0]))
-print(type(temps[0]))
+
+measure_dict = {'times': times, 'temps': temps}
+
+measure_df = pd.DataFrame(measure_dict)
+# print(measure_df.head())
+measure_df.info()
+
+
+
