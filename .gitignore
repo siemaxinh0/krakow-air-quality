@@ -4,3 +4,5 @@ __pycache__/
 data/
 .ipynb_checkpoints/
 proba.py
+proba_env.py
+db_test.py
