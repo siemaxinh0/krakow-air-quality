@@ -8,5 +8,5 @@ hourly_mean = measure_df.groupby("hour")['pm10'].mean()
 print(hourly_mean)
 
 
-hourly_mean.plot()
+measure_df['pm10'].plot()
 plt.show()
