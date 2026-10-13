@@ -8,6 +8,7 @@ Some PM10 values are occasionally missing (stored as NULL). The CSV file holds o
 ## Pipeline
 - fetch.py downloads data from the API and saves it as a CSV file.
 - load.py loads CSV and injects the data into PostgreSQL database (launched in Docker), overwriting hours that are already in the table and adding new ones
+- After loading the hourly data, load.py also fills pm10_daily_mean: it averages PM10 over all available hours of each day. Missing (NULL) hours are ignored, so a day may be based on fewer than 24 values.
 - Database works on port 5433, because 5432 is sometimes occupied by local Postgres.
 - The pipeline is run manually with run_pipeline.ps1, because the database runs locally in Docker. Docker Desktop must be running first.
 
