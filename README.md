@@ -9,6 +9,7 @@ Some PM10 values are occasionally missing (stored as NULL). The CSV file holds o
 - fetch.py downloads data from the API and saves it as a CSV file.
 - load.py loads CSV and injects the data into PostgreSQL database (launched in Docker), overwriting hours that are already in the table and adding new ones
 - Database works on port 5433, because 5432 is sometimes occupied by local Postgres.
+- The pipeline is run manually with run_pipeline.ps1, because the database runs locally in Docker. Docker Desktop must be running first.
 
 ## Observations
 While analyzing the charts, I observed an increase in PM10 from September to October.
