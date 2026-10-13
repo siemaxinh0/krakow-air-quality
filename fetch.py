@@ -19,7 +19,6 @@ measure_df['times'] = pd.to_datetime(measure_df['times'])
 
 measure_df.to_csv('data/air_quality_krakow.csv', index=False)
 
-print(len(measure_df))
 
 
 
