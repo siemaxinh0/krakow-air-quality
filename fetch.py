@@ -3,7 +3,7 @@ import pandas as pd
 
 address = 'https://air-quality-api.open-meteo.com/v1/air-quality?latitude=50.06&longitude=19.94&hourly=pm10&timezone=auto&past_days=92'
 
-response = requests.get(address)
+response = requests.get(address, timeout=30)
 if response.status_code != 200:
     raise Exception(f"Error! Status code {response.status_code}")
 data = response.json()
