@@ -1,15 +1,9 @@
-import os
-from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy import text
 import pandas as pd
+from db import get_engine
 
-load_dotenv()
-password = os.getenv("POSTGRES_PASSWORD") # wyciagniecie hasla do bazy z .env
-
-address = f'postgresql+psycopg://postgres:{password}@localhost:5433/postgres'
-
-engine = create_engine(address)
+engine = get_engine()
 connection = engine.connect()
 
 create_table_query = text("""CREATE TABLE IF NOT EXISTS air_quality (
