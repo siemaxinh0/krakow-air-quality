@@ -15,8 +15,14 @@ air_quality_df = air_quality_df[air_quality_df['days'] < today]
 air_quality_df['pm10_next_day'] = air_quality_df['pm10'].shift(-1)
 print(len(air_quality_df))
 air_quality_df = air_quality_df.dropna(subset=['pm10_next_day'])
-print(len(air_quality_df))
-print(air_quality_df.tail(3))
+diff = air_quality_df['pm10'] - air_quality_df['pm10_next_day']
+mae = diff.abs().mean()
+print(mae)
+pm10_mean = air_quality_df['pm10'].mean()
+print(pm10_mean)
+ratio = mae / pm10_mean
+print(ratio)
+
 
 
 
