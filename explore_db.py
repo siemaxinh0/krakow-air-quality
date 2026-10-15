@@ -8,14 +8,15 @@ from db import get_engine
 engine = get_engine()
 connection = engine.connect()
 
-# air_quality_df = pd.read_sql("SELECT COUNT(*) FROM pm10_daily_mean ORDER BY days", engine)
-# air_quality_df['days'] = pd.to_datetime(air_quality_df['days'])
-# air_quality_df.info()
+air_quality_df = pd.read_sql("SELECT days, pm10 FROM pm10_daily_mean ORDER BY days", engine)
+air_quality_df['days'] = pd.to_datetime(air_quality_df['days'])
+today = pd.Timestamp.today().normalize()
+air_quality_df = air_quality_df[air_quality_df['days'] < today]
+air_quality_df['pm10_next_day'] = air_quality_df['pm10'].shift(-1)
+print(len(air_quality_df))
+air_quality_df = air_quality_df.dropna(subset=['pm10_next_day'])
+print(len(air_quality_df))
+print(air_quality_df.tail(3))
 
-show_query = text("""SELECT COUNT(*) FROM air_quality""")
-res = connection.execute(show_query)
-print(res.fetchall())
 
-# air_quality_df.plot(x='days', y='pm10', kind='line')
-# plt.show()
 
