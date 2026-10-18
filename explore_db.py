@@ -16,6 +16,7 @@ today = pd.Timestamp.today().normalize()
 air_quality_df = air_quality_df[air_quality_df['days'] < today]
 air_quality_df['pm10_next_day'] = air_quality_df['pm10'].shift(-1)
 air_quality_df['pm10_prev_day'] = air_quality_df['pm10'].shift(1)
+air_quality_df['is_weekend'] = (air_quality_df['days'].dt.weekday >= 5).astype(int)
 print(f'Before dropna: {len(air_quality_df)}')
 air_quality_df = air_quality_df.dropna(subset=['pm10_next_day', 'pm10_prev_day'])
 print(f'After dropna: {len(air_quality_df)}')
@@ -59,9 +60,6 @@ baseline_mae_last_20_days = mean_absolute_error(y_test, X_test['pm10_prev_day'])
 print(f'Linear regression model MAE (last 20 days): {model_mae}') 
 print(f'Baseline MAE (last 20 days): {baseline_mae_last_20_days}')
 
-print(model.coef_)
-print(model.intercept_)
-
 X_train_without_yesterday = X_train[["pm10"]]
 X_test_without_yesterday = X_test[["pm10"]]
 
@@ -71,6 +69,19 @@ predictions_without_yesterday = model_without_yesterday.predict(X_test_without_y
 
 model_without_yesterday_mae = mean_absolute_error(y_test, predictions_without_yesterday)
 print(f'Linear regression model without yesterday MAE (last 20 days): {model_without_yesterday_mae}')
+
+X_train_with_weekends = training_data[["pm10", "pm10_prev_day", "is_weekend"]]
+X_test_with_weekends = test_data[["pm10", "pm10_prev_day", "is_weekend"]]
+model_with_weekends = LinearRegression()
+model_with_weekends.fit(X_train_with_weekends, y_train)
+predictions_with_weekends = model_with_weekends.predict(X_test_with_weekends)
+
+model_with_weekends_mae = mean_absolute_error(y_test, predictions_with_weekends)
+print(f'Linear regression with is_weekend MAE: {model_with_weekends_mae}')
+
+
+
+
 
 
 
