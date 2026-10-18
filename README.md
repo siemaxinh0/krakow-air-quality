@@ -19,6 +19,18 @@ Average PM10 by hour of day is lowest around 3 PM and highest around 10-11 PM, w
 ## Hypotheses
 An increase in PM10 might be related to the start of the heating season, but it's only my hypothesis, which I didn't check. Another hypothesis is that the small peak around 7-8 AM is triggered by high traffic caused by people commuting to work.
 
+## Results
+I wanted to predict the next day's value of PM10. The baseline predicts that tomorrow's value equals today's. I implemented a simple linear regression model to predict next day's PM10 value, whose basic version used two features: today's and yesterday's PM10. I also tried removing the previous-day feature, but the MAE was practically unchanged. Another experiment included information if the current day is part of the weekend but it did not noticeably improve the predictions either. All linear regression variants beat the baseline. However, the dataset is small (20 test days, one season), so I cannot tell whether the features help at all.
+
+Results as of 2026-10-18. Training: 12 Jul - 26 Sep, test: 27 Sep - 16 Oct, 20 days.
+
+| Model | MAE |
+|---|---|
+| Baseline | 13.90 |
+| Regression (today, yesterday) | 9.81 | 
+| Regression (only today) | 9.81 |
+| Regression (today, yesterday, is_weekend) | 9.69 | 
+
 
 
 
