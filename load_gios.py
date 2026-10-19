@@ -9,5 +9,11 @@ names = df_krakow.iloc[1]
 df_krakow = df_krakow.iloc[6:]
 df_krakow.columns = names
 df_krakow = df_krakow.reset_index(drop=True)
+df_krakow.columns.name = None
+df_krakow = df_krakow.rename(columns={"Kod stacji":"times"})
+columns_with_numbers = df_krakow.columns[1:]
+df_krakow[columns_with_numbers] = df_krakow[columns_with_numbers].astype(float)
+df_krakow['times'] = pd.to_datetime(df_krakow['times'])
 print(df_krakow.shape)
 print(df_krakow.head(8))
+df_krakow.info()
